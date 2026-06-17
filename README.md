@@ -33,7 +33,7 @@ Os arquivos de cada parte já foram criados dentro da pasta `src/` (ou `notebook
 ```
 
 ### Branchs:
-
+* `parte1/estruturas-basicas`
 * `parte2/livro-ofertas`
 * `parte3/motor-match`
 * `parte4/analise-jupyter`
