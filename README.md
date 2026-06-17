@@ -5,11 +5,11 @@
 
 Os arquivos de cada parte já foram criados dentro da pasta `src/` (ou `notebooks/`). **Cada um deve trabalhar exclusivamente no seu arquivo:**
 
-*   **Moli** ➡️ `src/ordem.py`, `src/fila.py`, `src/pilha.py`
-*   **Vini** ➡️ `src/lista_encadeada.py`
-*   **Karen** ➡️ `src/motor_match.py`
-*   **Fernanda** ➡️ `notebooks/analise.ipynb`
-*   **Kauan** ➡️ `src/main.py`
+*   **Moli** --> `src/ordem.py`, `src/fila.py`, `src/pilha.py`
+*   **Vini** --> `src/lista_encadeada.py`
+*   **Karen** --> `src/motor_match.py`
+*   **Fernanda** --> `notebooks/analise.ipynb`
+*   **Kauan** --> `src/main.py`
 
 ## Configuração Inicial (Só é preciso fazer uma vez)
 
@@ -25,7 +25,7 @@ Os arquivos de cada parte já foram criados dentro da pasta `src/` (ou `notebook
 
 ```
 
-3. **Entrar ma sua branch** (substitua `parteX/nome` pelo nome correspondente à sua parte):
+3. **Entrar na sua branch** (substitua `parteX/nome` pelo nome correspondente à sua parte):
 
 ```bash
    git checkout -b parte1/estruturas-basicas
@@ -69,15 +69,15 @@ git push origin sua-branch
 
 O professor vai avaliar o histórico de commits, então vamos seguir o padrão *Conventional Commits*:
 
-* `feat:` ➡️ Funcionalidade nova.
+* `feat:` --> Funcionalidade nova.
 * *Exemplo:* `feat: implementa classe OrdemNode`
 
 
-* `fix:` ➡️ Correção de bug.
+* `fix:` --> Correção de bug.
 * *Exemplo:* `fix: corrige ponteiro next na remoção`
 
 
-* `docs:` ➡️ Comentários, documentação ou alterações no README.
+* `docs:` --> Comentários, documentação ou alterações no README.
 * *Exemplo:* `docs: adiciona docstring na fila`
 
 
@@ -92,7 +92,7 @@ Isso tira ponto na nota individual
 2. **Não mexam** nos arquivos dos outros integrantes.
 3. Quando terminar a sua parte por completo, me avise para que eu possa fazer o **merge** para a `main`.
 
-Qualquer dúvida, é só me chamar no grupo! 👍
+Qualquer dúvida, é só me chamar no grupo!
 Kauan!!
 (16) 994297281
 
