@@ -7,3 +7,4 @@ class ListaDuplamenteEncadeada:
     def is_empty(self):                ...  # retorna True se vazia
     def exibir(self):                  ...  # printa a lista pra debug
 """
+print("teste")
