@@ -1,14 +1,3 @@
-# Nome da classe principal
-"""
-Classe Fila:
-
-python
-class Fila:
-    def enqueue(self, ordem): ...  # adiciona no fim
-    def dequeue(self):        ...  # remove e retorna do início
-    def is_empty(self):       ...  # retorna True se vazia
-"""
-
 class NoFila:
 
     def __init__(self, ordem):
@@ -48,8 +37,9 @@ class Fila:
 
     if self.ponteiro_frente is None:
         self.ponteiro_atras = None
-    else:
-        self.ponteiro_frente.prev = None
+
+    # CORREÇÃO: removida linha "self.ponteiro_frente.prev = None"
+    # NoFila não possui atributo prev, causaria AttributeError
 
     return no.ordem
   
@@ -59,19 +49,3 @@ class Fila:
        return True
     
     return False
-
-# fila = Fila()
-
-# print("Fila vazia?", fila.is_empty())
-
-# fila.enqueue("Ordem 1")
-# fila.enqueue("Ordem 2")
-# fila.enqueue("Ordem 3")
-
-# print("Fila vazia?", fila.is_empty())
-
-# print("Removendo:", fila.dequeue())
-# print("Removendo:", fila.dequeue())
-# print("Removendo:", fila.dequeue())
-
-# print("Fila vazia?", fila.is_empty())
