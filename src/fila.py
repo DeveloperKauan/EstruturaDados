@@ -48,17 +48,12 @@ class Fila:
 
     if self.ponteiro_frente is None:
         self.ponteiro_atras = None
-    else:
-        self.ponteiro_frente.prev = None
 
     return no.ordem
   
   def is_empty(self): # retorna True se vazia
      
-    if self.ponteiro_frente is None and self.ponteiro_atras is None:
-       return True
-    
-    return False
+    return self.ponteiro_frente is None
 
 # fila = Fila()
 
