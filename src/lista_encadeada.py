@@ -1,3 +1,5 @@
+from ordem import OrdemNode
+
 #Nome da Classe Principal da Lista Encadeada
 """
 class ListaDuplamenteEncadeada:
@@ -7,4 +9,9 @@ class ListaDuplamenteEncadeada:
     def is_empty(self):                ...  # retorna True se vazia
     def exibir(self):                  ...  # printa a lista pra debug
 """
-print("teste")
+#Criando a Classe NoLista para representar cada nó da lista encadeada.
+class NoLista:
+    def __init__(self, ordem: OrdemNode):
+        self.ordem = ordem
+        self.next = None
+        self.prev = None
