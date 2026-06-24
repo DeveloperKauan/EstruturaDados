@@ -16,7 +16,6 @@ class MotorMatch:
         self.historico_tail = None
 
     def registrar_transacao(self, id_compra, id_venda, preco, quantidade):
-        # CORREÇÃO: método era chamado como _registrar_transacao (com underline) mas definido sem
         nova_transacao = TransacaoNode(id_compra, id_venda, preco, quantidade)
 
         if self.historico_tail:
@@ -27,13 +26,12 @@ class MotorMatch:
             self.historico_head = nova_transacao
 
     def executar(self, lista_compras, lista_vendas):
-        # CORREÇÃO: agora retorna lista Python com as transações geradas NESSA rodada
-        # (antes retornava self.historico_head acumulado de todas as rodadas)
+        # antes retornava self.historico_head acumulado de todas as rodada
         transacoes_da_rodada = []
 
         while not lista_compras.is_empty() and not lista_vendas.is_empty():
             melhor_compra = lista_compras.topo()  # OO: acessa via método, não atributo interno
-            melhor_venda = lista_vendas.topo()    # OO: acessa via método, não atributo interno
+            melhor_venda = lista_vendas.topo()  
 
             if melhor_compra.preco < melhor_venda.preco:
                 break  # não tem mais matches possíveis
@@ -51,7 +49,6 @@ class MotorMatch:
             melhor_compra.quantidade -= qtd_negociada
             melhor_venda.quantidade -= qtd_negociada
 
-            # CORREÇÃO: chamada sem underline, igual ao nome do método definido acima
             self.registrar_transacao(
                 melhor_compra.id,
                 melhor_venda.id,
@@ -67,8 +64,8 @@ class MotorMatch:
 
             # Remove ordens que tiveram quantidade zerada
             if melhor_compra.quantidade == 0:
-                lista_compras.remover_no(melhor_compra)
+                lista_compras.remover(melhor_compra.id)
             if melhor_venda.quantidade == 0:
-                lista_vendas.remover_no(melhor_venda)
+                lista_vendas.remover(melhor_venda.id)
 
         return transacoes_da_rodada
