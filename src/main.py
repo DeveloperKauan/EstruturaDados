@@ -1,60 +1,28 @@
-# main.py — Interface CLI do Simulador de Livro de Ofertas
+
+# main.py — Interface CLI
 # Parte 5 — Kauan
-# from lista_encadeada import ListaDuplamenteEncadeada # Parte 2 — Vini
-# from motor_match import MotorMatch                   # Parte 3 — Karen
 
-# IMPORTS: descomentar conforme cada parte for integrada 
-from datetime import datetime
+from ordem import OrdemNode                           # Parte 1 — Moli
+from fila  import Fila                                # Parte 1 — Moli
+from pilha import Pilha                               # Parte 1 — Moli
+from lista_encadeada import ListaDuplamenteEncadeada  # Parte 2 — Vini
+from motor_match import MotorMatch                    # Parte 3 — Karen
 
-class OrdemNode:
-    def __init__(self, id, tipo, preco, quantidade):
-        self.id = id
-        self.tipo = tipo
-        self.preco = preco
-        self.quantidade = quantidade
-        self.timestamp = datetime.now()
 
-class Fila:
-    def enqueue(self, ordem): pass
-    def dequeue(self): return None
-    def is_empty(self): return True
-
-class Pilha:
-    def push(self, id): pass
-    def pop(self): return None
-    def is_empty(self): return True
-
-class ListaDuplamenteEncadeada:
-    def __init__(self): self.head = None
-    def inserir_ordenado(self, ordem): pass
-    def remover(self, id): pass
-    def remover_no(self, no): pass
-    def topo(self): return None
-    def is_empty(self): return self.head is None
-    def exibir(self): print("  (lista vazia)")
-
-class MotorMatch:
-    def executar(self, lista_compras, lista_vendas): return []
-
-# -----------------------------------------------------------------------------
 # ESTADO GLOBAL DO SISTEMA
-# -----------------------------------------------------------------------------
 fila_entrada  = Fila()
 pilha_undo    = Pilha()
-lista_compras = ListaDuplamenteEncadeada()
-lista_vendas  = ListaDuplamenteEncadeada()
+lista_compras = ListaDuplamenteEncadeada(ordem_crescente=False)  # maior preço primeiro
+lista_vendas  = ListaDuplamenteEncadeada(ordem_crescente=True)   # menor preço primeiro
 motor         = MotorMatch()
 transacoes    = []   # histórico de matches gerados
 proximo_id    = 1    # contador auto-incremento de IDs
 
-
-# =============================================================================
 # FUNÇÕES DE INTERFACE
-# =============================================================================
 
 def cabecalho():
     print("\n" + "=" * 50)
-    print("   SIMULADOR DE LIVRO DE OFERTAS")
+    print("   SIMULADOR DE OFERTAS")
     print("=" * 50)
 
 def menu():
@@ -66,10 +34,7 @@ def menu():
     print("[0] Sair")
     return input("\nEscolha uma opção: ").strip()
 
-
-# =============================================================================
 # AÇÕES DO SISTEMA
-# =============================================================================
 
 def inserir_ordem():
     """Recebe dados do usuário e enfileira uma nova ordem."""
@@ -88,13 +53,12 @@ def inserir_ordem():
         print("Valor inválido. Tente novamente.")
         return
 
-    # AJUSTE: OrdemNode não recebe timestamp — é gerado automaticamente pela classe
+    # OrdemNode gera o timestamp automaticamente
     ordem = OrdemNode(
         id=proximo_id,
         tipo=tipo,
         preco=preco,
         quantidade=quantidade
-        timestamp=timestamp
     )
     proximo_id += 1
 
@@ -114,16 +78,17 @@ def processar_fila():
         if ordem is None:
             break
 
+        # Insere na lista correta conforme tipo da ordem
         if ordem.tipo == "C":
             lista_compras.inserir_ordenado(ordem)
         else:
             lista_vendas.inserir_ordenado(ordem)
 
-        # Salva o ID pra undo
+        # Salva o ID na pilha de undo para cancelamento futuro
         pilha_undo.push(ordem.id)
         processadas += 1
 
-        # motor matc
+        # Executa o motor de match — retorna lista de strings da rodada
         novas_transacoes = motor.executar(lista_compras, lista_vendas)
         if novas_transacoes:
             transacoes.extend(novas_transacoes)
@@ -159,13 +124,17 @@ def desfazer_ultima():
         return
 
     id_cancelado = pilha_undo.pop()
+
+    # Tenta remover de ambas as listas só vai achar em uma delas
     lista_compras.remover(id_cancelado)
     lista_vendas.remover(id_cancelado)
 
     print(f"\n↩ Ordem #{id_cancelado} removida do livro de ofertas.")
+    print("⚠ Atenção: se essa ordem já foi executada em um match, ela não existe mais no livro.")
 
 
-# loop
+# LOOP PRINCIPAL
+
 
 def main():
     cabecalho()
