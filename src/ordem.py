@@ -14,9 +14,12 @@ class OrdemNode:
 
   # as ordens de negociação que serão inseridas
 
-  def __init__(self, id:int, tipo:str, preco:float, quantidade:int):
+  proximo_id = 1
 
-    self.id = id
+  def __init__(self, tipo:str, preco:float, quantidade:int):
+
+    self.id = OrdemNode.proximo_id
+    OrdemNode.proximo_id += 1 
     self.tipo = tipo  # 'C' compra ou 'V' venda
     self.preco = preco
     self.quantidade = quantidade

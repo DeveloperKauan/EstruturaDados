@@ -38,14 +38,24 @@ class Fila:
     if self.ponteiro_frente is None:
         self.ponteiro_atras = None
 
-    # CORREÇÃO: removida linha "self.ponteiro_frente.prev = None"
-    # NoFila não possui atributo prev, causaria AttributeError
-
     return no.ordem
   
   def is_empty(self): # retorna True se vazia
      
-    if self.ponteiro_frente is None and self.ponteiro_atras is None:
-       return True
-    
-    return False
+    return self.ponteiro_frente is None
+
+# fila = Fila()
+
+# print("Fila vazia?", fila.is_empty())
+
+# fila.enqueue("Ordem 1")
+# fila.enqueue("Ordem 2")
+# fila.enqueue("Ordem 3")
+
+# print("Fila vazia?", fila.is_empty())
+
+# print("Removendo:", fila.dequeue())
+# print("Removendo:", fila.dequeue())
+# print("Removendo:", fila.dequeue())
+
+# print("Fila vazia?", fila.is_empty())
