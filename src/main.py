@@ -16,7 +16,6 @@ lista_compras = ListaDuplamenteEncadeada(ordem_crescente=False)  # maior preço 
 lista_vendas  = ListaDuplamenteEncadeada(ordem_crescente=True)   # menor preço primeiro
 motor         = MotorMatch()
 transacoes    = []   # histórico de matches gerados
-proximo_id    = 1    # contador auto-incremento de IDs
 
 # FUNÇÕES DE INTERFACE
 
@@ -38,7 +37,6 @@ def menu():
 
 def inserir_ordem():
     """Recebe dados do usuário e enfileira uma nova ordem."""
-    global proximo_id
     print("\n--- NOVA ORDEM ---")
 
     tipo = input("Tipo (C = Compra / V = Venda): ").strip().upper()
@@ -55,12 +53,10 @@ def inserir_ordem():
 
     # OrdemNode gera o timestamp automaticamente
     ordem = OrdemNode(
-        id=proximo_id,
         tipo=tipo,
         preco=preco,
         quantidade=quantidade
     )
-    proximo_id += 1
 
     fila_entrada.enqueue(ordem)
     print(f"\n✔ Ordem #{ordem.id} ({tipo} | R${preco:.2f} | {quantidade} ações) adicionada à fila.")
