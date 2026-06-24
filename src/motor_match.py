@@ -32,8 +32,8 @@ class MotorMatch:
         transacoes_da_rodada = []
 
         while not lista_compras.is_empty() and not lista_vendas.is_empty():
-            melhor_compra = lista_compras.head
-            melhor_venda = lista_vendas.head
+            melhor_compra = lista_compras.topo()  # OO: acessa via método, não atributo interno
+            melhor_venda = lista_vendas.topo()    # OO: acessa via método, não atributo interno
 
             if melhor_compra.preco < melhor_venda.preco:
                 break  # não tem mais matches possíveis
