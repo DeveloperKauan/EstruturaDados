@@ -8,14 +8,17 @@ class TransacaoNode:
         self.next = None
 
     def __str__(self):
-        return f"Compra #{self.id_compra} x Venda #{self.id_venda} | {self.quantidade} ações a R${self.preco:.2f}"
-
-class MotorMatch:
+        return "Compra #%s x Venda #%s | %s acoes a R$%.2f" % (
+            self.id_compra,
+            self.id_venda,
+            self.quantidade,
+            self.preco
+        )
     def __init__(self):
-        self.historico_head = None
+        self.historico_head = None 
         self.historico_tail = None
 
-    def registrar_transacao(self, id_compra, id_venda, preco, quantidade):
+    def registrar_transacao(self, id_compra, id_venda, preco, quantidade): #registra uma transacao no historico
         # CORREÇÃO: método era chamado como _registrar_transacao (com underline) mas definido sem
         nova_transacao = TransacaoNode(id_compra, id_venda, preco, quantidade)
 
@@ -26,22 +29,30 @@ class MotorMatch:
         if not self.historico_head:
             self.historico_head = nova_transacao
 
+
+    def pegar_primeira_ordem(self, lista_ordens): #pega o maior valor se for compra e o menor valor se for venda
+        return lista_ordens.topo()
+
+    def remover_ordem(self, lista_ordens, ordem): #remove a ordem caso ela chegue a quantidade 0
+        lista_ordens.remover(ordem.id)
+
     def executar(self, lista_compras, lista_vendas):
-        # CORREÇÃO: agora retorna lista Python com as transações geradas NESSA rodada
-        # (antes retornava self.historico_head acumulado de todas as rodadas)
-        transacoes_da_rodada = []
+        # 'class Fila' de outro arquivo para guardar as transacoes dessa rodada.
+        # cria uma fila para armazenar as transações da rodada
+        transacoes_da_rodada = Fila()
 
         while not lista_compras.is_empty() and not lista_vendas.is_empty():
-            melhor_compra = lista_compras.head
-            melhor_venda = lista_vendas.head
+            melhor_compra = self.pegar_primeira_ordem(lista_compras)
+            melhor_venda = self.pegar_primeira_ordem(lista_vendas)
 
+ 
             if melhor_compra.preco < melhor_venda.preco:
                 break  # não tem mais matches possíveis
 
             # Define a quantidade a ser negociada
             qtd_negociada = min(melhor_compra.quantidade, melhor_venda.quantidade)
 
-            # Define o preço de execução baseado em quem chegou primeiro (maker)
+            # Define o preço de execução baseado em quem chegou primeiro (maker) 
             if melhor_compra.timestamp <= melhor_venda.timestamp:
                 preco_execucao = melhor_compra.preco
             else:
@@ -52,18 +63,16 @@ class MotorMatch:
             melhor_venda.quantidade -= qtd_negociada
 
             # CORREÇÃO: chamada sem underline, igual ao nome do método definido acima
-            self.registrar_transacao(
+            #Cria e salva a transação no histórico.
+            transacao = self.registrar_transacao(
                 melhor_compra.id,
                 melhor_venda.id,
                 preco_execucao,
                 qtd_negociada
             )
 
-            # Guarda na lista da rodada para retornar ao main.py
-            transacoes_da_rodada.append(
-                f"Compra #{melhor_compra.id} x Venda #{melhor_venda.id} | "
-                f"{qtd_negociada} ações a R${preco_execucao:.2f}"
-            )
+            #Coloca a transação na fila da rodada.
+            transacoes_da_rodada.enqueue(transacao)
 
             # Remove ordens que tiveram quantidade zerada
             if melhor_compra.quantidade == 0:
