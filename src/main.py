@@ -10,6 +10,7 @@ from motor_match import MotorMatch                    # Parte 3 — Karen
 
 
 # ESTADO GLOBAL DO SISTEMA
+
 fila_entrada  = Fila()
 pilha_undo    = Pilha()
 lista_compras = ListaDuplamenteEncadeada(ordem_crescente=False)  # maior preço primeiro
@@ -32,6 +33,7 @@ def menu():
     print("[5] Desfazer última ordem (Undo)")
     print("[0] Sair")
     return input("\nEscolha uma opção: ").strip()
+
 
 # AÇÕES DO SISTEMA
 
@@ -130,7 +132,6 @@ def desfazer_ultima():
 
 
 # LOOP PRINCIPAL
-
 
 def main():
     cabecalho()
