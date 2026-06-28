@@ -23,7 +23,7 @@ Este trabalho tem como objetivo aplicar conceitos de estruturas de dados lineare
 
 O sistema simula um **Livro de Ofertas (Order Book)**: ele recebe ordens de compra e venda de ativos, organiza essas ordens em estruturas ordenadas e executa automaticamente o "casamento" (*match*) entre compradores e vendedores quando os preços são compatíveis.
 
-Todas as estruturas de dados foram implementadas **do zero**, por meio de nós encadeados manualmente — sem o uso de `list`, `collections.deque` ou qualquer estrutura nativa do Python para representar filas, pilhas ou listas.
+Todas as estruturas de dados foram implementadas por meio de nós encadeados aprendidos no curso.
 
 ---
 
@@ -92,20 +92,20 @@ Implementa uma pilha **LIFO** (*Last In, First Out*) por meio de nós encadeados
 - `pop()`: desempilha e retorna o último ID inserido — **O(1)**.
 - `is_empty()`: retorna `True` se a pilha estiver vazia.
 
-Permite que a última ordem inserida no livro de ofertas seja cancelada rapidamente. Caso o ID recuperado já tenha sido removido do livro anteriormente (por exemplo, por ter sido totalmente executado em um match), a remoção simplesmente não localiza nenhum nó correspondente — esse caso é tratado de forma silenciosa, sem gerar erro.
+Permite que a última ordem inserida no livro de ofertas seja cancelada rapidamente. Caso o ID recuperado já tenha sido removido do livro anteriormente (por exemplo, por ter sido totalmente executado em um match), a remoção simplesmente não localiza nenhum nó correspondente, esse caso é tratado sem gerar erro.
 
 ### 4.4 Livro de Ofertas (`lista_encadeada.py`)
 
-Implementa uma lista **duplamente encadeada ordenada** (`ListaDuplamenteEncadeada`), usada tanto para a Lista de Compras quanto para a Lista de Vendas — a mesma classe é instanciada duas vezes, com uma configuração diferente de ordenação:
+Implementa uma lista **duplamente encadeada ordenada** (`ListaDuplamenteEncadeada`), usada tanto para a Lista de Compras quanto para a Lista de Vendas a mesma classe é instanciada duas vezes, com uma configuração diferente de ordenação:
 
 ```python
 lista_compras = ListaDuplamenteEncadeada(ordem_crescente=False)  # maior preço primeiro
 lista_vendas  = ListaDuplamenteEncadeada(ordem_crescente=True)   # menor preço primeiro
 ```
 
-- `inserir_ordenado(ordem)`: insere uma ordem mantendo a lista ordenada, percorrendo os nós existentes até encontrar a posição correta — **O(n)**.
+- `inserir_ordenado(ordem)`: insere uma ordem mantendo a lista ordenada, percorrendo os nós existentes até encontrar a posição correta **O(n)**.
 - `remover(id)`: localiza e remove o nó correspondente a um ID, religando os ponteiros `next`/`prev` dos vizinhos. Retorna `None` se o ID não for encontrado (cenário esperado quando a ordem já foi finalizada por um match anterior).
-- `remover_no(no)`: remove diretamente um nó já localizado, sem necessidade de busca — usado internamente pelo Motor de Match, que já possui a referência ao nó por meio do `topo()`.
+- `remover_no(no)`: remove diretamente um nó já localizado, sem necessidade de busca usado internamente pelo Motor de Match, que já possui a referência ao nó por meio do `topo()`.
 - `topo()`: retorna a ordem (`OrdemNode`) do primeiro nó da lista, sem removê-la.
 - `is_empty()`: retorna `True` se a lista estiver vazia.
 - `exibir()`: imprime o conteúdo da lista, nó a nó, para fins de depuração.
