@@ -91,3 +91,30 @@ class ListaDuplamenteEncadeada:
         while atual is not None:
             print(f"ID: {atual.ordem.id} | Preço: {atual.ordem.preco} | Quantidade: {atual.ordem.quantidade}")
             atual = atual.next
+
+# print("=== Teste: Lista de Compras (esperado: 120, 100, 90) ===")
+# lista_compras = ListaDuplamenteEncadeada(ordem_crescente=False)
+# lista_compras.inserir_ordenado(OrdemNode(1, 'C', 100, 50))
+# lista_compras.inserir_ordenado(OrdemNode(2, 'C', 120, 30))
+# lista_compras.inserir_ordenado(OrdemNode(3, 'C', 90, 70))
+# lista_compras.exibir()
+
+# print("=== Teste: Lista de Vendas (esperado: 80, 95, 105) ===")
+# lista_vendas = ListaDuplamenteEncadeada(ordem_crescente=True)
+# lista_vendas.inserir_ordenado(OrdemNode(4, 'V', 95, 40))
+# lista_vendas.inserir_ordenado(OrdemNode(5, 'V', 80, 20))
+# lista_vendas.inserir_ordenado(OrdemNode(6, 'V', 105, 60))
+# lista_vendas.exibir()
+
+# print("=== Teste: topo() e is_empty() ===")
+# print("Topo das compras (esperado: ID 2, preço 120):", lista_compras.topo().id, lista_compras.topo().preco)
+# print("Lista de compras vazia?", lista_compras.is_empty())
+
+# print("=== Teste: remover(id) - removendo ID existente (2) ===")
+# removida = lista_compras.remover(2)
+# print("Removida:", removida.id, removida.preco)
+# lista_compras.exibir()
+
+# print("=== Teste: remover(id) - removendo ID que NÃO existe (999) ===")
+# resultado = lista_compras.remover(999)
+# print("Resultado (esperado: None):", resultado)
